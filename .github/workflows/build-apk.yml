@@ -1,0 +1,22 @@
+herename: Build LÖVE APK
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Create game.love file
+        run: |
+          zip -r game.love main.lua replit.nix
+      
+      - name: Build Android APK
+        uses: love-actions/love-actions-android@v1
+        with:
+          app-name: "Mi Juego LÖVE"
+          bundle-id: "com.replit.mylovegame"
+          love-package: ./game.love
